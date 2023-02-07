@@ -1,5 +1,5 @@
 # rest-api-nodejs
-NoteApp RestAPI
-Framework: ExpressJS
-ORM: Sequelize
-RDBMS: MySQL
+NoteApp RestAPI </br>
+Framework: ExpressJS </br>
+ORM: Sequelize </br>
+RDBMS: MySQL </br>
