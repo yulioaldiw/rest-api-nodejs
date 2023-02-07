@@ -6,6 +6,16 @@ const v = new Validator()
 
 const {Notes} = require("../models")
 
+router.get("/", async (req, res, next) => {
+    const notes = await Notes.findAll();
+
+    return res.json({
+        status: 200,
+        message: "get all notes successfully",
+        data: notes,
+    });
+});
+
 router.post("/", async (req, res, next) => {
     const schema = {
         title: "string",
