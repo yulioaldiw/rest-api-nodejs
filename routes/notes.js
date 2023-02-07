@@ -9,10 +9,28 @@ const {Notes} = require("../models")
 router.get("/", async (req, res, next) => {
     const notes = await Notes.findAll();
 
-    return res.json({
-        status: 200,
+    return res.status(200).json({
+        status: "success",
         message: "get all notes successfully",
         data: notes,
+    });
+});
+
+router.get("/:id", async (req, res, next) => {
+    const id = req.params.id;
+    let note = await Notes.findByPk(id);
+
+    if(!note) {
+        return res.status(404).json({
+            status: "fail",
+            message: "note id not found"
+        });
+    }
+
+    return res.status(200).json({
+        status: "success",
+        message: "get note successfully",
+        data: note,
     });
 });
 
@@ -29,8 +47,8 @@ router.post("/", async (req, res, next) => {
     }
 
     const note = await Notes.create(req.body);
-    res.json({
-        status: 200,
+    res.status(200).json({
+        status: "success",
         message: "note created successfully",
         data: note
     });
@@ -42,7 +60,7 @@ router.put("/:id", async (req, res, next) => {
 
     if(!note) {
         return res.status(404).json({
-            status: 404,
+            status: "fail",
             message: "note id not found"
         });
     }
@@ -60,10 +78,29 @@ router.put("/:id", async (req, res, next) => {
 
     note = await note.update(req.body);
 
-    res.json({
-        status: 200,
+    res.status(200).json({
+        status: "success",
         message: "note updated successfully",
         data: note,
+    });
+});
+
+router.delete("/:id", async (req, res, next) => {
+    const id = req.params.id;
+    let note = await Notes.findByPk(id);
+
+    if(!note) {
+        return res.status(404).json({
+            status: "fail",
+            message: "note id not found"
+        });
+    }
+
+    await note.destroy();
+
+    return res.status(200).json({
+        status: "success",
+        message: "note deleted successfully"
     });
 });
 
